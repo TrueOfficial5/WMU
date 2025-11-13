@@ -617,7 +617,7 @@ function tryPlayMusic() {
     setTimeout(() => {
       music.volume = 0.5;
       music.play().catch(() => console.log("Autoplay blockerad, klicka för att spela musiken."));
-    }, 180000); // 10 sek = 10000 ms
+    }, 120000); // 10 sek = 10000 ms
   }
 }
 
@@ -628,7 +628,7 @@ setTimeout(() => {
     music.play().catch(() => console.log("Autoplay blockerad, klicka för att spela musiken."));
     musicStarted = true;
   }
-}, 180000); // 1 minut = 60000 ms
+}, 120000); // 1 minut = 60000 ms
 
 // 4 minuter = 240000 ms
 setTimeout(() => {
@@ -645,7 +645,7 @@ setTimeout(() => {
 
     // Spela ljud
     sound.play().catch(() => {}); // om ljudet blockeras gör det inget
-}, 180000); // körs efter 4 minuter
+}, 120000); // körs efter 4 minuter
 
 
 // Starta musik vid första användarinteraktion med 10 sek fördröjning
