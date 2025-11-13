@@ -153,6 +153,23 @@
     .btn{display:inline-block; padding:10px 12px; font-family:var(--mono); font-size:11px; text-transform:uppercase; border-radius:6px; cursor:pointer; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 6px 18px rgba(0,0,0,0.6); color:#eafaf1; text-decoration:none;}
     .btn.ghost{background:transparent; border:1px dashed rgba(255,255,255,0.06)}
 
+    .btn.white {
+    background-color: #838383; /* Orange bakgrund */
+    color: rgb(0, 0, 0);              /* Vit text */
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.btn.white:hover {
+    background-color: #ffb84d; /* Ljusare orange vid hover */
+    transform: translateY(2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.3);
+}
+
     /* Modal */
     #rulesModal{
       display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:9999;
@@ -365,6 +382,8 @@
             <div class="tooltip-container">
   <a id="downloadBtn" class="btn" href="nodownload.html" style="pointer-events:none; opacity:0.5;">Download modpack</a>
   <span class="tooltip-text">Läs regler först!</span>
+</div>
+<a id="installGuideBtn" class="btn white" href="installationsguide.html">Installationsguide</a>
 </div>
 
   <!-- Countdown -->

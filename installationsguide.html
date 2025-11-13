@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Installationsguide</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    header {
+        background-color: #252525;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #444;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+        background-color: #666;
+    }
+
+    main {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #2b2b2b;
+        border-radius: 10px;
+    }
+
+    h1, h2 {
+        color: #ffcc00;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+
+    /* PNG animation */
+    #random-image {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        pointer-events: none;
+    }
+
+    .btn {
+            display: inline-block;
+            background-color: #bebebe;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #696969;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        #support-popup {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  font-family: var(--mono);
+  z-index: 1000;
+}
+#popup-container {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  background: #111;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.7);
+  overflow: hidden;
+  transition: height 0.3s;
+}
+#popup-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background: #222;
+  cursor: pointer;
+  flex-shrink: 0;
+  user-select: none;
+}
+#chat-messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  overflow-y: auto;
+  color: #fff;
+}
+#chat-input-container input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #333;
+  color: #fff;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Installationsguide</h1>
+</header>
+
+<main>
+    <h2>Steg 1: Ladda ner Modrinth</h2>
+    <p>Här visar vi steg för steg hur du laddar ner och installerar Modrinth samt vårt modpack.</p>
+        
+        <h2>Steg 1: Ladda ner och installera Modrinth</h2>
+        <ol>
+            <li>Gå till <a href="https://modrinth.com/" target="_blank" style="color:#ffb84d;">Modrinth</a>.</li>
+            <li>Klicka på "Download" och välj versionen som passar ditt operativsystem.</li>
+            <li>Installera Modrinth enligt installationsguiden för ditt OS.</li>
+            <li>Öppna Modrinth och skapa ett konto eller logga in om du redan har ett.</li>
+        </ol>
+
+        <h2>Steg 2: Ladda ner modpacket</h2>
+        <ol>
+            <li>Gå till vår hemsida och klicka på knappen <code>Download modpack</code>.</li>
+            <li>Spara modpacket på en plats du enkelt kan hitta, t.ex. skrivbordet eller mappen "Nedladdningar".</li>
+        </ol>
+
+        <h2>Steg 3: Installera modpacket</h2>
+        <ol>
+            <li>Öppna Modrinth och klicka på "Import Modpack" eller "Add Modpack".</li>
+            <li>Navigera till modpacket du laddade ner och välj filen.</li>
+            <li>Följ instruktionerna för att importera modpacket till Modrinth.</li>
+            <li>När importen är klar kan du starta spelet med modpacket installerat.</li>
+        </ol>
+        <a href="index.html" class="btn" id="back-btn">Tillbaka till startsidan</a>
+        <audio id="click-sound" src="Sound/explosion.mp4" preload="auto"></audio>
+</main>
+
+<img id="random-image" src="Images/Support.png" alt="PNG">
+
+<div id="support-popup" style="display:none; position:fixed; bottom:20px; right:20px; width:300px; font-family:var(--mono); z-index:1000;">
+  <div id="popup-container" style="display:flex; flex-direction:column; height:400px; background:#111; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.7); overflow:hidden; transition: height 0.3s;">
+    
+    <!-- Header med profilbild (klickbar för minimera) -->
+    <div id="popup-header" style="display:flex; align-items:center; padding:10px; background:#222; cursor:pointer; flex-shrink:0; user-select:none;">
+      <img src="Images/support.jpg" alt="Support" style="width:40px; height:40px; border-radius:50%; margin-right:10px;">
+      <div style="color:#fff; font-weight:bold;">Support</div>
+    </div>
+    
+    <!-- Chattmeddelanden -->
+    <div id="chat-messages" style="flex:1; display:flex; flex-direction:column; gap:6px; padding:10px; overflow-y:auto; color:#fff;">
+      <div style="background:#222; padding:6px 10px; border-radius:8px; max-width:80%;">Hello sir! I'm still here if you need me. Remember the gift card!</div>
+    </div>
+    
+    <!-- Inputfält -->
+    <div id="chat-input-container" style="padding:10px; background:#222; flex-shrink:0;">
+      <input id="chat-input" type="text" placeholder="Skriv ett meddelande..." style="width:100%; padding:8px; border-radius:8px; border:none; outline:none; background:#333; color:#fff;" />
+    </div>
+    
+  </div>
+</div>
+
+<audio id="support-sound" src="Sound/new-notification.mp3" preload="auto"></audio>
+
+
+<script>
+const img = document.getElementById('random-image');
+
+function showRandomImage() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
+    img.style.left = x + 'px';
+    img.style.top = y + 'px';
+    
+    const rotation = (Math.random() * 60) - 30;
+    img.style.transform = `rotate(${rotation}deg)`;
+    
+    img.style.opacity = 1;
+    
+    setTimeout(() => {
+        img.style.opacity = 0;
+    }, 1500 + Math.random() * 1000);
+}
+
+const popup = document.getElementById('support-popup');
+const popupContainer = document.getElementById('popup-container');
+const popupHeader = document.getElementById('popup-header');
+const chatInput = document.getElementById('chat-input');
+const chatMessages = document.getElementById('chat-messages');
+const sound = document.getElementById('support-sound');
+
+// Visa popup 5 sek efter första klick
+function showPopup() {
+  popup.style.display = 'flex';
+  sound.play().catch(() => {});
+  setTimeout(() => chatInput.focus(), 100);
+}
+document.addEventListener('click', () => {
+  setTimeout(showPopup, 5000);
+}, { once: true });
+
+// Skicka meddelanden
+chatInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && chatInput.value.trim() !== '') {
+    const userMsg = document.createElement('div');
+    userMsg.textContent = chatInput.value;
+    userMsg.style.background = '#0f0';
+    userMsg.style.color = '#000';
+    userMsg.style.padding = '6px 10px';
+    userMsg.style.borderRadius = '8px';
+    userMsg.style.alignSelf = 'flex-end';
+    userMsg.style.maxWidth = '80%';
+    chatMessages.appendChild(userMsg);
+
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Supportens svar med delay
+    setTimeout(() => {
+      const supportMsg = document.createElement('div');
+      supportMsg.textContent = "Send amazon gift card, sir";
+      supportMsg.style.background = '#222';
+      supportMsg.style.color = '#fff';
+      supportMsg.style.padding = '6px 10px';
+      supportMsg.style.borderRadius = '8px';
+      supportMsg.style.alignSelf = 'flex-start';
+      supportMsg.style.maxWidth = '80%';
+      chatMessages.appendChild(supportMsg);
+
+      sound.play().catch(() => {});
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 500);
+  }
+});
+
+// Minimera / expandera popup
+let minimized = false;
+popupHeader.addEventListener('click', () => {
+  if (!minimized) {
+    popupContainer.style.height = '50px';
+    chatMessages.style.display = 'none';
+    document.getElementById('chat-input-container').style.display = 'none';
+    minimized = true;
+  } else {
+    popupContainer.style.height = '400px';
+    chatMessages.style.display = 'flex';
+    document.getElementById('chat-input-container').style.display = 'block';
+    chatInput.focus();
+    minimized = false;
+  }
+});
+
+const backBtn = document.getElementById('back-btn');
+const clickSound = document.getElementById('click-sound');
+
+backBtn.addEventListener('click', function(e) {
+    e.preventDefault(); // Stoppa länken tillfälligt
+    clickSound.play().catch(() => {}); // Spela ljud
+
+    // Vänta tills ljudet spelats upp innan navigering
+    clickSound.onended = () => {
+        window.location.href = backBtn.href;
+    };
+});
+
+// Testa direkt vid laddning
+showRandomImage();
+
+// Eller kör den varje 3 sekunder
+setInterval(showRandomImage, 3000);
+
+
+</script>
+
+</body>
+</html>
