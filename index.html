@@ -320,6 +320,19 @@
   background: radial-gradient(circle, #FFFAC5 0%, #FFD700 50%, #FF8C00 100%);
 }
 
+.btn.unlocked {
+  background-color: #00ff99;
+  color: #000;
+  border: 2px solid #7cffcb;
+  box-shadow: 0 0 15px #00ff99, 0 0 30px #7cffcb;
+  animation: pulseGlow 1s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 10px #00ff99, 0 0 20px #7cffcb; transform: scale(1); }
+  50% { box-shadow: 0 0 20px #00ff99, 0 0 40px #7cffcb; transform: scale(1.05); }
+  100% { box-shadow: 0 0 30px #00ff99, 0 0 60px #7cffcb; transform: scale(1.1); }
+}
 
   </style>
 </head>
@@ -563,11 +576,16 @@ acceptRules.addEventListener("click", () => {
     downloadBtn.style.pointerEvents = "auto";
     downloadBtn.style.opacity = "1";
     tooltipText.style.display = "none"; // döljer tooltip permanent
+
+    // Lägg till visuell effekt
+    downloadBtn.classList.add("unlocked");
+
     rulesModal.style.display = "none";
   } else {
     alert("Du måste kryssa i rutan för att acceptera reglerna idiot!");
   }
 });
+
 
 // Server status updater
 async function updateServerStatus() {
