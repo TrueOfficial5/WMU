@@ -617,7 +617,7 @@ function tryPlayMusic() {
     setTimeout(() => {
       music.volume = 0.5;
       music.play().catch(() => console.log("Autoplay blockerad, klicka för att spela musiken."));
-    }, 240000); // 10 sek = 10000 ms
+    }, 180000); // 10 sek = 10000 ms
   }
 }
 
@@ -628,7 +628,25 @@ setTimeout(() => {
     music.play().catch(() => console.log("Autoplay blockerad, klicka för att spela musiken."));
     musicStarted = true;
   }
-}, 240000); // 1 minut = 60000 ms
+}, 180000); // 1 minut = 60000 ms
+
+// 4 minuter = 240000 ms
+setTimeout(() => {
+    const musicMsg = document.createElement('div');
+    musicMsg.textContent = "I like this song, sir!";
+    musicMsg.style.background = '#222';
+    musicMsg.style.color = '#1eeb2c';
+    musicMsg.style.padding = '6px 10px';
+    musicMsg.style.borderRadius = '8px';
+    musicMsg.style.alignSelf = 'flex-start';
+    musicMsg.style.maxWidth = '80%';
+    chatMessages.appendChild(musicMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Spela ljud
+    sound.play().catch(() => {}); // om ljudet blockeras gör det inget
+}, 180000); // körs efter 4 minuter
+
 
 // Starta musik vid första användarinteraktion med 10 sek fördröjning
 document.addEventListener('click', tryPlayMusic, { once: true });
