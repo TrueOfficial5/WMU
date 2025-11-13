@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <link rel="icon" href="Images/monstericon.jpg" type="image/jpeg">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WMU Julminecraft 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* -----------------------------
+       Brainrot / Minecraft aesthetic
+       Single-file HTML + CSS
+       -----------------------------*/
+    :root{
+      --bg-1:#0b0f12;
+      --bg-2:#14171a;
+      --neon:#7cffcb;
+      --accent:#ff66c4;
+      --block:#7b8b3b;
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.05);
+      --mono: 'Press Start 2P', monospace;
+      --ui: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:var(--ui); background:linear-gradient(160deg,var(--bg-1) 0%,var(--bg-2) 60%);
+      color:#eafaf1; overflow:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      background-attachment:fixed;
+    }
+
+    /* Subtle film grain */
+    body::after{
+  content:""; 
+  position:fixed; 
+  inset:0; 
+  pointer-events:none; 
+  mix-blend-mode:overlay;
+  background-image:radial-gradient(rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size:3px 3px; 
+  opacity:0.6;
+}
+.scanline{
+  position:absolute; 
+  inset:0; 
+  background-image:linear-gradient(180deg, transparent 50%, rgba(255,255,255,0.01) 51%); 
+  background-size:100% 6px; 
+  pointer-events:none;
+}
+
+
+    .wrap{
+      position:relative; height:100vh; display:flex; align-items:center; justify-content:center; gap:40px; padding:32px;
+    }
+
+    .card{
+      width:820px; max-width:calc(100% - 64px); background:linear-gradient(180deg,var(--glass), transparent);
+      border-radius:18px; padding:28px; box-shadow:0 10px 40px rgba(2,8,12,0.7); backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,0.04); position:relative; overflow:hidden;
+    }
+
+    header{
+      display:flex; gap:18px; align-items:center; margin-bottom:18px;
+    }
+
+    .logo{
+      width:120px; height:160px; background:linear-gradient(180deg,#2a6cff,#6b2bff); border-radius:12px; display:grid; place-items:center;
+      box-shadow:inset 0 -8px 20px rgba(0,0,0,0.55), 0 8px 30px rgba(107,43,255,0.14);
+      transform:rotate(-6deg);
+      border:3px solid rgba(255,255,255,0.03);
+    }
+ .logo a {
+  display: block;
+  text-decoration: none; /* tar bort understrykning */
+  color: inherit; /* behåller färger från .cube */
+}
+
+   .logo .cube {
+  width: 56px;
+  height: 150px;
+  background: url("https://i.ibb.co/VcBKJP3s/Monster.png") center/cover no-repeat;
+  border-radius: 6px;
+  box-shadow: inset 0 -6px 4px rgba(0,0,0,0.35);
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
+}
+
+.logo .cube:hover {
+  /* Stark vit backglow */
+  box-shadow: 0 0 30px 8px rgba(255,255,255,1), 
+              0 0 60px 12px rgba(255,255,255,0.7), 
+              inset 0 -6px 4px rgba(0,0,0,0.35);
+  filter: brightness(1.5);
+}
+
+
+    h1{font-family:var(--mono); margin:0; font-size:18px; line-height:1; letter-spacing:0.6px;}
+    p.lead{margin:6px 0 0; opacity:0.8; font-size:11px}
+
+    /* Brainrot marquee */
+    .marquee{
+      margin-top:8px; width:100%; overflow:hidden; border-top:1px dashed rgba(255,255,255,0.02); padding-top:10px; display:flex; align-items:center; gap:12px;
+    }
+    .marquee .txt{font-family:var(--mono); transform:skewX(-6deg); font-size:12px; white-space:nowrap;}
+    .glitch{
+      position:relative; display:inline-block; font-family:var(--mono); color:var(--neon); font-size:22px; text-transform:uppercase;
+    }
+    .glitch::before, .glitch::after{
+      content:attr(data-text); position:absolute; left:0; top:0; width:100%;
+      clip-path:polygon(0 0,100% 0,100% 30%,0 30%);
+    }
+    .glitch::before{color:var(--accent); transform:translate(2px,-2px); mix-blend-mode:screen; opacity:0.85; animation:glitch-anim 2.6s infinite linear alternate-reverse;}
+    .glitch::after{color:var(--neon); transform:translate(-3px,1px); mix-blend-mode:screen; opacity:0.65; animation:glitch-anim2 3.1s infinite linear alternate;}
+
+    @keyframes glitch-anim{
+      0%{clip-path:polygon(0 0,100% 0,100% 10%,0 10%); transform:translate(1px,-1px) skewX(-3deg)}
+      25%{clip-path:polygon(0 0,100% 0,100% 40%,0 40%); transform:translate(-3px,2px) skewX(6deg)}
+      50%{clip-path:polygon(0 0,100% 0,100% 5%,0 5%); transform:translate(2px,-1px) skewX(-6deg)}
+      100%{clip-path:polygon(0 0,100% 0,100% 45%,0 45%); transform:translate(-1px,3px) skewX(3deg)}
+    }
+    @keyframes glitch-anim2{
+      0%{clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%); transform:translate(-2px,1px) skewX(2deg)}
+      50%{clip-path:polygon(0 20%,100% 20%,100% 100%,0 100%); transform:translate(3px,-2px) skewX(-3deg)}
+      100%{clip-path:polygon(0 30%,100% 30%,100% 100%,0 100%); transform:translate(-1px,2px) skewX(5deg)}
+    }
+
+    /* Content grid */
+    .grid{
+      display:grid; grid-template-columns:1fr 260px; gap:20px; align-items:start;
+    }
+
+    .main{
+      padding:12px; border-radius:12px; background:linear-gradient(180deg, rgba(10,12,10,0.05), transparent); border:1px solid rgba(255,255,255,0.02);
+      min-height:320px;
+    }
+
+    .sidebar{
+      padding:14px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03);
+      height:320px; position:relative; overflow:hidden;
+    }
+
+    /* Minecraft-style buttons */
+    .btn.green {
+        color: black;
+        background-color: #4caf50;
+        padding: 10px 40px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+    .btn.green:hover { background-color: #45a049; transform: scale(1.05);}
+    .btn{display:inline-block; padding:10px 12px; font-family:var(--mono); font-size:11px; text-transform:uppercase; border-radius:6px; cursor:pointer; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 6px 18px rgba(0,0,0,0.6); color:#eafaf1; text-decoration:none;}
+    .btn.ghost{background:transparent; border:1px dashed rgba(255,255,255,0.06)}
+
+    /* Modal */
+    #rulesModal{
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:9999;
+    }
+    #rulesModal .modal-content{background:linear-gradient(180deg,#14171a,#0b0f12); padding:24px; border-radius:12px; max-width:400px; text-align:left; color:#eafaf1; font-family:var(--mono); box-shadow:0 8px 20px rgba(0,0,0,0.7); line-height: 1.6;}
+    #rulesModal .modal-content h3{margin-top:0; font-size:14px; margin-bottom:10px; color:var(--neon);}
+    #rulesModal .modal-content p{font-size:11px; opacity:0.8; margin-bottom:12px;}
+    #rulesModal label{display:flex; align-items:center; gap:8px; font-size:12px;}
+    #rulesModal input[type="checkbox"]{width:16px; height:16px;}
+    #rulesModal button{margin-top:12px; width:100%;}
+
+    .brain{
+  --size:10px;
+  display:grid;
+  grid-template-columns: repeat(20, var(--size));
+  grid-auto-rows: var(--size);
+  gap:2px;
+  justify-content:center;
+  margin-bottom:10px;
+}
+.cell{ width:var(--size); height:var(--size); border-radius:2px; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.5); background:transparent; }
+
+.skin { background: #6a3f2a; }
+.skin-dark { background: #4b2a1a; }
+.hair { background: #0b0b0b; }
+.eye { background: #ffffff; }
+.pupil { background: #000000; }
+.mouth { background: #771f1f; }
+.shirt { background: #2b6cff; }
+.shirt-dark { background:#1f4ea8; }
+.bg { background: transparent; }
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 120%; /* ovanför knappen */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+.floating{
+  position:absolute; 
+  right:-40px; 
+  top:-40px; 
+  width:260px; 
+  height:260px; 
+  pointer-events:none; 
+  transform:rotate(12deg);
+  background-image:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+}
+
+    /* floating cubes (minecraft block feel) */
+    .floating{
+      position:absolute; right:-40px; top:-40px; width:260px; height:260px; pointer-events:none; transform:rotate(12deg);
+      background-image:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    }
+    .cube-sprite{position:absolute; width:56px; height:56px; border-radius:6px; display:grid; place-items:center; font-family:var(--mono); font-size:12px;}
+    .c1{right:10px; top:8px; background:linear-gradient(180deg,#8fb34a,#6f8b36); box-shadow:0 12px 24px rgba(0,0,0,0.45)}
+    .c2{right:72px; top:86px; background:linear-gradient(180deg,#3fa3ff,#2b6bff); transform:scale(0.88) rotate(-8deg)}
+    .c3{right:140px; top:30px; background:linear-gradient(180deg,#ffcc66,#ff9e3b); transform:rotate(6deg)}
+
+
+    /* Popup container */
+#support-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  /* pointer-events: none;  ← ta bort den raden helt */
+  animation: popup-fadein 0.5s forwards;
+}
+
+
+/* Chat bubble */
+.support-chat {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(0,0,0,0.85);
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 12px;
+  max-width: 200px;
+  pointer-events: auto;
+}
+
+/* tvinga hover att synas även om elementet har inline background */
+#popup-header {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 1001;        /* säkerställ att den inte ligger under annat */
+  pointer-events: auto; /* säkerställ att den kan ta emot hover */
+}
+
+/* vanlig hover (kan behöva !important om inline finns) */
+#popup-header:hover {
+  background-color: #444 !important;
+}
+
+
+/* Avatar */
+.support-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Popup animation */
+@keyframes popup-fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.goldCorner {
+  position:absolute;
+  width:0;
+  height:0;
+  border-radius:50%;
+  background: radial-gradient(circle, #FFFAC5 0%, #FFD700 30%, #FFA500 50%, rgba(255, 255, 197,0) 80%);
+  filter: blur(80px);
+  transition: width 6s ease-out, height 6s ease-out;
+}
+
+/* Placering */
+.top-left { top:0; left:0; }
+.top-right { top:0; right:0; }
+.bottom-left { bottom:0; left:0; }
+.bottom-right { bottom:0; right:0; }
+
+@keyframes popupExplosion {
+  0% { transform: scale(1); opacity: 1; filter: blur(0px); }
+  50% { transform: scale(1.5); opacity: 0.8; filter: blur(4px); }
+  100% { transform: scale(3); opacity: 0; filter: blur(12px); }
+}
+
+.explode {
+  animation: popupExplosion 0.8s forwards;
+  background: radial-gradient(circle, #FFFAC5 0%, #FFD700 50%, #FF8C00 100%);
+}
+
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="main">
+      <header>
+        <div class="logo" aria-hidden>
+  <a href="https://www.bodypower.se/drycker-1/energidrycker/monster-energy-ultra-white-24x50cl?gad_source=1&gad_campaignid=22356656283&gbraid=0AAAAA_CMArILszwMO3R00BndE-3wQAeox&gclid=CjwKCAiA2svIBhB-EiwARWDPjkbiFvHW3k4q9uhlHbVd_nyG5glWDnVHYvwSZyaNrP5celpe08kCYBoCRwAQAvD_BwE" target="_blank">
+    <div class="cube">BR</div>
+  </a>
+</div>
+        <div>
+          
+            <div class="glitch pulse" data-text="White Monster Ultra">White Monster Ultra</div>
+            <h1>Julminecraft 2025</h1>
+          <p class="lead">Nigga! Glöm inte att följa reglerna</p>
+          <div class="marquee">
+            <div class="txt" style="opacity:0.7">
+              • Seed: <a href="KFC.html" target="_blank" style="color:#4CAF50; text-decoration:underline;">Klicka här</a> för att visa
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <section class="main">
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px">
+            <a id="rulesBtn" class="btn green" href="#">Regler</a>
+            <div class="tooltip-container">
+  <a id="downloadBtn" class="btn" href="nodownload.html" style="pointer-events:none; opacity:0.5;">Download modpack</a>
+  <span class="tooltip-text">Läs regler först!</span>
+</div>
+
+  <!-- Countdown -->
+
+<div id="countdown" style="margin-top:16px; font-family:var(--mono); font-size:12px; opacity:0.9; color:#7cffcb;">
+  Server start om: <span id="days">0</span>d <span id="hours">0</span>h <span id="minutes">0</span>m <span id="seconds">0</span>s
+</div>
+
+<div class="floating" aria-hidden>
+  <div class="cube-sprite c1">D</div>
+  <div class="cube-sprite c2">W</div>
+  <div class="cube-sprite c3">S</div>
+</div>
+      <div class="scanline"></div>
+      <div class="floating" aria-hidden>
+        <div class="cube-sprite c1">D</div>
+        <div class="cube-sprite c2">W</div>
+        <div class="cube-sprite c3">S</div>
+      </div>
+
+
+
+          <article style="line-height:1.45; font-size:13px; opacity:0.95">
+            </br>
+            <p>Välkommen till <strong>WMU 2025!</strong> Här accepterar vi bara rasistiska skämt och högt i tak.</p>
+<p><strong>Regler?</strong> Glöm det (LÄS REGLERNA) – vi har araber som exploderar ditt ego innan du hinner säga "Allahu akbar". Bygg ditt hus, men akta dig för Negrarna som stjäl dina block... precis som dina föräldrar stal din barndom innan din farsa hamnade i fängelset.</p>
+<p><strong>Ny här?</strong> Bra, för de gamla spelarna är antingen banade för dåliga pappaskämt eller allmänt "PK". Skicka ditt mest offensiva skämt i chatten – om det inte dödar oss av skratt, så får du plocka bummul.</p>
+          </article>
+          <br><br>
+          <div style="margin-top:16px; display:flex; gap:10px; align-items:center; flex-wrap:wrap">
+            <div style="font-size:11px; opacity:0.8">Server status:</div>
+            <a href="404.html" class="btn" id="server-status">Laddar...</a>
+            <a href="404.html" class="btn ghost" id="server-players" target="_blank">Players: ...</a>
+
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <!-- Sidebar content (pixel-art + server IP) -->
+          <div style="text-align:center">
+            <div class="brain" aria-hidden>
+  <!-- 20x20 African man pixel art -->
+  <!-- Row 1 -->
+  <div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 2 -->
+  <div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 3 -->
+  <div class="cell bg"></div><div class="cell bg"></div><div class="cell hair"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 4 -->
+  <div class="cell bg"></div><div class="cell hair"></div><div class="cell skin"></div><div class="cell eye"></div><div class="cell pupil"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell pupil"></div><div class="cell eye"></div><div class="cell skin"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 5 -->
+  <div class="cell hair"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell mouth"></div><div class="cell mouth"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 6 -->
+  <div class="cell hair"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 7 -->
+  <div class="cell hair"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell skin"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 8 -->
+  <div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell hair"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 9 -->
+  <div class="cell bg"></div><div class="cell bg"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Row 10 -->
+  <div class="cell bg"></div><div class="cell shirt"></div><div class="cell shirt-dark"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt-dark"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt-dark"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt-dark"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell shirt-dark"></div><div class="cell shirt"></div><div class="cell shirt"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- Rows 11–20 -->
+  <div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div><div class="cell bg"></div>
+  <!-- You can continue Rows 12–20 with bg or add more shirt/skin details as desired -->
+</div>
+            <div style="font-size:12px; margin-bottom:8px; opacity:0.9">Server IP</div>
+            <div style="font-family:var(--mono); font-size:12px; padding:8px; border-radius:8px; background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(255,255,255,0.02));">
+              white-monster-ultra.modrinth.gg
+            </div>
+            <div style="font-size:12px; margin-bottom:8px; opacity:0.9">Password</div>
+            <div style="font-family:var(--mono); font-size:12px; padding:8px; border-radius:8px; background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(255,255,255,0.02));">
+              *****
+            </div>
+          </div>
+          <div class="noise"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rules Modal -->
+  <div id="rulesModal">
+    <div class="modal-content">
+      <h3>Regler</h3>
+      <p>Läs igenom och acceptera reglerna för att kunna ladda ner modpacken:</p>
+      <ul style="font-size:12px; opacity:0.8;">
+        <li>Ingen grief</li>
+        <li>Sno inte från andras kistor/bas</li>
+        <li>Bygg med ett stort avstånd från andra spelares bas</li>
+        <li>Drick monster</li>
+        <li>Farms får inte lånas ut gratis. Hyra är det som gäller om du inte bygger dina egna.</li>
+        <li>Om någon bygger secret entrance så är det inte okej att hitta andra vägar in.</li>
+      </ul>
+      <label><input type="checkbox" id="agreeCheckbox"> Jag föding förstår och accepterar reglerna</label>
+      <button id="acceptRules" class="btn green">Bekräfta</button>
+    </div>
+  </div>
+
+
+<div id="support-popup" style="display:none; position:fixed; bottom:20px; right:20px; width:300px; font-family:var(--mono); z-index:1000;">
+  <div id="popup-container" style="display:flex; flex-direction:column; height:400px; background:#111; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.7); overflow:hidden; transition: height 0.3s;">
+    
+    <!-- Header med profilbild (klickbar för minimera) -->
+    <div id="popup-header" style="display:flex; align-items:center; padding:10px; background:#222; cursor:pointer; flex-shrink:0; user-select:none;">
+      <img src="Images/support.jpg" alt="Support" style="width:40px; height:40px; border-radius:50%; margin-right:10px;">
+      <div style="color:#fff; font-weight:bold;">Support</div>
+    </div>
+    
+    <!-- Chattmeddelanden -->
+    <div id="chat-messages" style="flex:1; display:flex; flex-direction:column; gap:6px; padding:10px; overflow-y:auto; color:#fff;">
+      <div style="background:#222; padding:6px 10px; border-radius:8px; max-width:80%;">Hello, I am texting from Microsoft. You needing some help, yes?</div>
+    </div>
+    
+    <!-- Inputfält -->
+    <div id="chat-input-container" style="padding:10px; background:#222; flex-shrink:0;">
+      <input id="chat-input" type="text" placeholder="Skriv ett meddelande..." style="width:100%; padding:8px; border-radius:8px; border:none; outline:none; background:#333; color:#fff;" />
+    </div>
+    
+  </div>
+</div>
+
+
+
+<div id="downloadPopup" style="display:none; position:fixed; inset:0; justify-content:center; align-items:center; z-index:10000; font-family:var(--mono);">
+  <!-- Guld-overlay från hörn -->
+  <div id="goldOverlayContainer" style="position:absolute; inset:0; z-index:1; pointer-events:none;">
+    <div class="goldCorner top-left"></div>
+    <div class="goldCorner top-right"></div>
+    <div class="goldCorner bottom-left"></div>
+    <div class="goldCorner bottom-right"></div>
+  </div>
+
+  <!-- Popupinnehåll -->
+  <div style="position:relative; z-index:2; text-align:center; max-width:600px; width:90%;">
+    <video id="introVideo" width="100%" style="border-radius:12px;" preload="auto">
+      <source src="Video/Whitemonsterultra.mp4" type="video/mp4">
+      Din webbläsare stödjer inte video.
+    </video>
+  </div>
+
+  <!-- Download-knappen i mitten -->
+ <a id="finalDownloadBtn" href="nodownload.html" class="btn green" 
+   style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:16px; z-index:10;"
+   target="_blank">
+  Ladda ner
+</a>
+
+
+  <!-- Stäng-knappen -->
+  <button id="closeDownloadPopup" class="btn" 
+          style="position:absolute; top:20px; right:20px; z-index:11;">Stäng</button>
+</div>
+
+
+
+
+
+
+
+
+<audio id="support-sound" src="Sound/new-notification.mp3" preload="auto"></audio>
+<audio id="background-music" src="Sound/4 BIG GUYS.mp4" preload="auto"></audio>
+
+
+<script>
+const rulesBtn = document.getElementById("rulesBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const rulesModal = document.getElementById("rulesModal");
+
+// Stäng modalen när man klickar utanför innehållet
+rulesModal.addEventListener("click", (e) => {
+  if (e.target === rulesModal) {
+    rulesModal.style.display = "none";
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && rulesModal.style.display === "flex") {
+    rulesModal.style.display = "none";
+  }
+});
+
+const acceptRules = document.getElementById("acceptRules");
+const agreeCheckbox = document.getElementById("agreeCheckbox");
+const tooltipText = document.querySelector(".tooltip-text");
+
+let rulesAccepted = false;
+
+// Klicka på Regler-knappen → visa modal
+rulesBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  rulesModal.style.display = "flex";
+});
+
+// Klicka på Download-knappen → visa modal om inte accepterat
+downloadBtn.addEventListener("click", (e) => {
+  if (!rulesAccepted) {
+    e.preventDefault();
+    rulesModal.style.display = "flex";
+  }
+});
+
+// Bekräfta regler
+acceptRules.addEventListener("click", () => {
+  if (agreeCheckbox.checked) {
+    rulesAccepted = true;
+    downloadBtn.style.pointerEvents = "auto";
+    downloadBtn.style.opacity = "1";
+    tooltipText.style.display = "none"; // döljer tooltip permanent
+    rulesModal.style.display = "none";
+  } else {
+    alert("Du måste kryssa i rutan för att acceptera reglerna idiot!");
+  }
+});
+
+// Server status updater
+async function updateServerStatus() {
+  const host = "white-monster-ultra.modrinth.gg";
+  const statusEl = document.querySelector("#server-status");
+  const playersEl = document.querySelector("#server-players");
+
+  try {
+    const proxyUrl = "https://corsproxy.io/?";
+    const apiUrl = `https://api.mcstatus.io/v2/status/java/${host}`;
+    const response = await fetch(proxyUrl + encodeURIComponent(apiUrl));
+    const data = await response.json();
+
+    if (data.online) {
+      const players = data.players?.online ?? 0;
+      const max = data.players?.max ?? 0;
+      statusEl.textContent = "Online";
+      statusEl.style.background = "linear-gradient(180deg,#2dffb6,#7cffcb)";
+      statusEl.style.color = "#00201a";
+      playersEl.textContent = `Players: ${players}/${max}`;
+    } else {
+      statusEl.textContent = "Offline";
+      statusEl.style.background = "linear-gradient(180deg,#ff3f3f,#b50000)";
+      statusEl.style.color = "#fff";
+      playersEl.textContent = "Players: 0/0";
+    }
+  } catch (err) {
+    console.error("Fel vid hämtning:", err);
+    statusEl.textContent = "Error";
+    playersEl.textContent = "(kunde inte hämta)";
+  }
+}
+
+updateServerStatus();
+setInterval(updateServerStatus, 30000);
+
+// -----------------------------
+// Musik (autoplay-fix med delay efter interaktion)
+// -----------------------------
+let musicStarted = false;
+const music = document.getElementById("background-music");
+
+function tryPlayMusic() {
+  if (!musicStarted) {
+    musicStarted = true;
+    // Starta musiken efter 10 sekunder
+    setTimeout(() => {
+      music.volume = 0.5;
+      music.play().catch(() => console.log("Autoplay blockerad, klicka för att spela musiken."));
+    }, 240000); // 10 sek = 10000 ms
+  }
+}
+
+// Starta musik efter 1 minut oavsett användarinteraktion
+setTimeout(() => {
+  if (!musicStarted) {
+    music.volume = 0.5;
+    music.play().catch(() => console.log("Autoplay blockerad, klicka för att spela musiken."));
+    musicStarted = true;
+  }
+}, 240000); // 1 minut = 60000 ms
+
+// Starta musik vid första användarinteraktion med 10 sek fördröjning
+document.addEventListener('click', tryPlayMusic, { once: true });
+document.addEventListener('keydown', tryPlayMusic, { once: true });
+
+
+// -----------------------------
+// Support-popup
+// -----------------------------
+const popup = document.getElementById('support-popup');
+const popupContainer = document.getElementById('popup-container');
+const popupHeader = document.getElementById('popup-header');
+const chatInput = document.getElementById('chat-input');
+const chatMessages = document.getElementById('chat-messages');
+const chatInputContainer = document.getElementById('chat-input-container');
+const sound = document.getElementById('support-sound');
+
+function showPopup() {
+  popup.style.display = 'flex';
+  sound.play().catch(() => {});
+  setTimeout(() => chatInput.focus(), 100); // liten delay efter visning
+}
+
+// Starta popup 5 sek efter första klick
+document.addEventListener('click', () => {
+  setTimeout(showPopup, 5000);
+}, { once: true });
+
+// Hantera skickade meddelanden
+chatInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter' && chatInput.value.trim() !== '') {
+    const userMsg = document.createElement('div');
+    userMsg.textContent = chatInput.value;
+    userMsg.style.background = '#0f0';
+    userMsg.style.color = '#000';
+    userMsg.style.padding = '6px 10px';
+    userMsg.style.borderRadius = '8px';
+    userMsg.style.alignSelf = 'flex-end';
+    userMsg.style.maxWidth = '80%';
+    chatMessages.appendChild(userMsg);
+
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Supportens svar med delay
+    setTimeout(() => {
+      const supportMsg = document.createElement('div');
+      supportMsg.textContent = "Send amazon gift card, sir";
+      supportMsg.style.background = '#222';
+      supportMsg.style.color = '#fff';
+      supportMsg.style.padding = '6px 10px';
+      supportMsg.style.borderRadius = '8px';
+      supportMsg.style.alignSelf = 'flex-start';
+      supportMsg.style.maxWidth = '80%';
+      chatMessages.appendChild(supportMsg);
+
+      sound.play().catch(() => {});
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 500);
+  }
+});
+
+// Minimera / expandera popup när man klickar på header
+let minimized = false;
+popupHeader.addEventListener('click', () => {
+  if (!minimized) {
+    popupContainer.style.height = '50px';
+    chatMessages.style.display = 'none';
+    chatInputContainer.style.display = 'none';
+    minimized = true;
+  } else {
+    popupContainer.style.height = '400px';
+    chatMessages.style.display = 'flex';
+    chatInputContainer.style.display = 'block';
+    chatInput.focus();
+    minimized = false;
+  }
+});
+
+// Countdown till 28 november 2025
+const countdownDate = new Date("2025-11-28T00:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = countdownDate - now;
+
+  if (distance < 0) {
+    document.getElementById("countdown").textContent = "Slaget är igång!";
+    clearInterval(countdownInterval);
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
+}
+
+updateCountdown();
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+
+
+
+
+const goldCorners = document.querySelectorAll(".goldCorner");
+const finalDownloadBtn = document.getElementById("finalDownloadBtn");
+const downloadPopup = document.getElementById("downloadPopup");
+const introVideo = document.getElementById("introVideo");
+const closeDownloadPopup = document.getElementById("closeDownloadPopup");
+const explosionSound = new Audio("Sound/explosion.mp4");
+
+// Klick på download-knappen (från huvudsidan)
+downloadBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (!rulesAccepted) {
+    rulesModal.style.display = "flex";
+    return;
+  }
+
+  downloadPopup.style.display = "flex";
+  introVideo.currentTime = 0;
+  introVideo.play();
+
+  // Starta expansionen av hörn
+  goldCorners.forEach(div => {
+    setTimeout(() => {
+      div.style.width = "200%";
+      div.style.height = "200%";
+    }, 50);
+  });
+
+  // Visa download-knappen efter 6 sek
+  setTimeout(() => {
+      // Spela explosion-ljudet
+  explosionSound.currentTime = 0;
+  explosionSound.play();
+    finalDownloadBtn.style.display = "inline-block";
+    // Placera den i mitten av skärmen
+    finalDownloadBtn.style.position = "absolute";
+    finalDownloadBtn.style.top = "50%";
+    finalDownloadBtn.style.left = "50%";
+    finalDownloadBtn.style.transform = "translate(-50%, -50%)";
+    finalDownloadBtn.style.zIndex = "10";
+  }, 6050);
+});
+
+// Klick på final download-knappen
+finalDownloadBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  downloadPopup.classList.add("explode");
+
+  setTimeout(() => {
+    explosionSound.currentTime = 0;
+    explosionSound.play();
+
+    downloadPopup.style.display = "none";
+    finalDownloadBtn.style.display = "none";
+    goldCorners.forEach(div => {
+      div.style.width = "0";
+      div.style.height = "0";
+    });
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    downloadPopup.classList.remove("explode");
+
+    // Navigera till nodownload.html i samma fönster
+    window.location.href = "nodownload.html";
+  }, 3000);
+});
+
+
+// Klick på stäng-knappen
+closeDownloadPopup.addEventListener("click", () => {
+  downloadPopup.classList.add("explode");
+  setTimeout(() => {
+    downloadPopup.style.display = "none";
+    finalDownloadBtn.style.display = "none";
+    goldCorners.forEach(div => {
+      div.style.width = "0";
+      div.style.height = "0";
+    });
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    downloadPopup.classList.remove("explode");
+  }, 800);
+});
+
+
+</script>
+
+
+</body>
+</html>

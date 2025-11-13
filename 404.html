@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>404 – Sidan hittades inte</title>
+  <style>
+    :root {
+      --mono: 'Courier New', monospace;
+      --green: #00ffb3;
+      --red: #ff2e63;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--mono);
+      background: linear-gradient(180deg, #14171a, #0b0f12);
+      color: #eafaf1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 🍉 Melonklyftor */
+    #melonRain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .melon {
+      position: absolute;
+      top: -60px;
+      width: 60px;
+      height: 60px;
+      opacity: 0.9;
+      transform-origin: 50% 50%;
+      animation: fall linear forwards;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.4;
+      }
+    }
+
+    /* Error container */
+    .error-container {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, #1a1f23, #0b0f12);
+      padding: 40px 60px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.8s ease;
+    }
+    .error-code {
+      font-size: 96px;
+      font-weight: bold;
+      color: var(--green);
+      text-shadow: 0 0 10px rgba(0, 255, 179, 0.4);
+      margin: 0;
+    }
+    .error-message {
+      font-size: 16px;
+      opacity: 0.8;
+      margin-bottom: 24px;
+    }
+    .btn {
+      background: var(--green);
+      border: none;
+      color: #0b0f12;
+      font-weight: bold;
+      padding: 10px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+    .btn:hover {
+      background: #00c78f;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* 🌊 Vätskefyllning */
+    #koolaid {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to top, #ff4b6b 0%, #a6002c 80%);
+  z-index: 10;
+  overflow: hidden;
+}
+
+#koolaid::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 200%;
+  height: 40px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  animation: wave 1.5s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0% { transform: translateX(0) scaleX(1); }
+  50% { transform: translateX(-25%) scaleX(1.05); }
+  100% { transform: translateX(-50%) scaleX(1); }
+}
+
+.bubble {
+  position: absolute;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  opacity: 0.8;
+  pointer-events: none;
+  animation: bubbleRise linear forwards;
+}
+
+@keyframes bubbleRise {
+  0% { transform: translateY(0) scale(0.5); opacity: 0.8; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-150px) scale(1); opacity: 0; }
+}
+  </style>
+</head>
+<body>
+  <div id="melonRain"></div>
+  <div id="koolaid"></div>
+
+  <div class="error-container">
+    <h1 class="error-code">404</h1>
+    <p class="error-message">Här var det inget. Har inte orkat mera...</p>
+    <button class="btn" onclick="fillAndGo()">Tillbaka till startsidan</button>
+  </div>
+
+<script>
+  // --- Funktion för att navigera hem ---
+  function goHome() {
+    window.location.href = "index.html";
+  }
+
+  // --- Melonregn ---
+  const melonContainer = document.getElementById("melonRain");
+  const koolaid = document.getElementById("koolaid");
+
+  const melonSliceSVG = `
+    <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 50 L50 10 L90 50 Z" fill="#00a651" />
+      <path d="M15 47 L50 15 L85 47 Z" fill="#f4f4f4" />
+      <path d="M20 45 L50 20 L80 45 Z" fill="#ff4b4b" />
+      <circle cx="45" cy="35" r="2" fill="#222" />
+      <circle cx="50" cy="32" r="2" fill="#222" />
+      <circle cx="55" cy="35" r="2" fill="#222" />
+    </svg>
+  `;
+
+  function createMelonSlice() {
+    const melon = document.createElement("div");
+    melon.classList.add("melon");
+    melon.innerHTML = melonSliceSVG;
+    melon.style.left = Math.random() * 100 + "vw";
+    melon.style.animationDuration = (6 + Math.random() * 5) + "s";
+    melon.style.transform = `rotate(${Math.random() * 360}deg)`;
+    melon.style.width = 100 + Math.random() * 60 + "px";
+    melonContainer.appendChild(melon);
+    setTimeout(() => melon.remove(), 12000);
+  }
+
+  setInterval(createMelonSlice, 500);
+
+  // --- Kool-Aid-fyllning med vågor och bubblor ---
+  function createBubble() {
+    const bubble = document.createElement("div");
+    bubble.classList.add("bubble");
+    const size = 4 + Math.random() * 6;
+    bubble.style.width = bubble.style.height = size + "px";
+    bubble.style.left = Math.random() * 100 + "vw";
+    bubble.style.animationDuration = (1 + Math.random() * 1.5) + "s";
+    koolaid.appendChild(bubble);
+    setTimeout(() => bubble.remove(), 2000);
+  }
+
+  function fillAndGo() {
+    koolaid.style.transition = 'height 2.5s ease-in-out';
+    koolaid.style.height = '100%';
+
+    const bubbleInterval = setInterval(createBubble, 80);
+
+    setTimeout(() => {
+      clearInterval(bubbleInterval);
+      goHome(); // navigera till startsidan
+    }, 2500);
+  }
+
+  // --- Koppla fillAndGo till knappen ---
+  const backBtn = document.getElementById('backToHome');
+  if (backBtn) {
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      fillAndGo();
+    });
+  }
+</script>
+
+</body>
+</html>
