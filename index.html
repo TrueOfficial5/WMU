@@ -174,7 +174,7 @@
     #rulesModal{
       display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); align-items:center; justify-content:center; z-index:9999;
     }
-    #rulesModal .modal-content{background:linear-gradient(180deg,#14171a,#0b0f12); padding:24px; border-radius:12px; max-width:400px; text-align:left; color:#eafaf1; font-family:var(--mono); box-shadow:0 8px 20px rgba(0,0,0,0.7); line-height: 1.6;}
+    #rulesModal .modal-content{background:linear-gradient(180deg,#14171a,#0b0f12); padding:24px; border-radius:12px; max-width:700px; text-align:left; color:#eafaf1; font-family:var(--mono); box-shadow:0 8px 20px rgba(0,0,0,0.7); line-height: 1.6;}
     #rulesModal .modal-content h3{margin-top:0; font-size:14px; margin-bottom:10px; color:var(--neon);}
     #rulesModal .modal-content p{font-size:11px; opacity:0.8; margin-bottom:12px;}
     #rulesModal label{display:flex; align-items:center; gap:8px; font-size:12px;}
@@ -282,6 +282,14 @@
   pointer-events: auto;
 }
 
+/* Avatar */
+.support-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* tvinga hover att synas även om elementet har inline background */
 #popup-header {
   cursor: pointer;
@@ -295,14 +303,6 @@
   background-color: #444 !important;
 }
 
-
-/* Avatar */
-.support-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
 
 /* Popup animation */
 @keyframes popup-fadein {
@@ -351,6 +351,7 @@
   100% { box-shadow: 0 0 30px #00ff99, 0 0 60px #7cffcb; transform: scale(1.1); }
 }
 
+
   </style>
 </head>
 <body>
@@ -380,7 +381,7 @@
           <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px">
             <a id="rulesBtn" class="btn green" href="#">Regler</a>
             <div class="tooltip-container">
-  <a id="downloadBtn" class="btn" href="nodownload.html" style="pointer-events:none; opacity:0.5;">Download modpack</a>
+  <a id="downloadBtn" class="btn" href="https://drive.usercontent.google.com/u/0/uc?id=1pxArhKw8iUgjhKZrmwQhRKY8i7zcokkj&export=download" style="pointer-events:none; opacity:0.5;">Download modpack</a>
   <span class="tooltip-text">Läs regler först!</span>
 </div>
 <a id="installGuideBtn" class="btn white" href="installationsguide.html">Installationsguide</a>
@@ -417,7 +418,6 @@
             <div style="font-size:11px; opacity:0.8">Server status:</div>
             <a href="404.html" class="btn" id="server-status">Laddar...</a>
             <a href="404.html" class="btn ghost" id="server-players" target="_blank">Players: ...</a>
-
           </div>
         </section>
 
@@ -472,12 +472,15 @@
       <h3>Regler</h3>
       <p>Läs igenom och acceptera reglerna för att kunna ladda ner modpacken:</p>
       <ul style="font-size:12px; opacity:0.8;">
-        <li>Ingen grief</li>
+        <li>Ingen grief - Ingen TNT på varandra eller byggnader!</li>
         <li>Sno inte från andras kistor/bas</li>
-        <li>Bygg med ett stort avstånd från andra spelares bas</li>
+        <li>Har ett stort avstånd ifrån andras spelares bas - eller kom överrens med avstånd</li>
+        <li>Ta inte sönder väggar i andras bas för att komma in i ett rum</li>
+        <li>Fuska inte!</li>
         <li>Drick monster</li>
-        <li>Farms får inte lånas ut gratis. Hyra är det som gäller om du inte bygger dina egna.</li>
-        <li>Om någon bygger secret entrance så är det inte okej att hitta andra vägar in.</li>
+        <li>Låna inte ut dina farms gratis - Använd diamonds för att sälja/använda</li>
+        <li>Speciell yta för STORA frams</li>
+        <li>Speciell yta för Market</li>
       </ul>
       <label><input type="checkbox" id="agreeCheckbox"> Jag föding förstår och accepterar reglerna</label>
       <button id="acceptRules" class="btn green">Bekräfta</button>
@@ -527,7 +530,7 @@
   </div>
 
   <!-- Download-knappen i mitten -->
- <a id="finalDownloadBtn" href="nodownload.html" class="btn green" 
+ <a id="finalDownloadBtn" href="https://drive.usercontent.google.com/u/0/uc?id=1pxArhKw8iUgjhKZrmwQhRKY8i7zcokkj&export=download" class="btn green" 
    style="display:none; position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:16px; z-index:10;"
    target="_blank">
   Ladda ner
@@ -684,7 +687,6 @@ setTimeout(() => {
     sound.play().catch(() => {}); // om ljudet blockeras gör det inget
 }, 120000); // körs efter 4 minuter
 
-
 // Starta musik vid första användarinteraktion med 10 sek fördröjning
 document.addEventListener('click', tryPlayMusic, { once: true });
 document.addEventListener('keydown', tryPlayMusic, { once: true });
@@ -839,13 +841,16 @@ downloadBtn.addEventListener("click", (e) => {
 // Klick på final download-knappen
 finalDownloadBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  const url = finalDownloadBtn.href;
 
+  // Starta explosion-effekt
   downloadPopup.classList.add("explode");
 
+  // Vänta 600ms innan popup stängs och länken öppnas
   setTimeout(() => {
-    explosionSound.currentTime = 0;
-    explosionSound.play();
-
+          // Spela explosion-ljudet
+  explosionSound.currentTime = 0;
+  explosionSound.play();
     downloadPopup.style.display = "none";
     finalDownloadBtn.style.display = "none";
     goldCorners.forEach(div => {
@@ -856,11 +861,10 @@ finalDownloadBtn.addEventListener("click", (e) => {
     introVideo.currentTime = 0;
     downloadPopup.classList.remove("explode");
 
-    // Navigera till nodownload.html i samma fönster
-    window.location.href = "nodownload.html";
+    // Öppna nedladdningslänken efter explosionen
+    window.open(url, "_blank");
   }, 3000);
 });
-
 
 // Klick på stäng-knappen
 closeDownloadPopup.addEventListener("click", () => {
